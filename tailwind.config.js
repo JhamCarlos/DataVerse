@@ -1,0 +1,60 @@
+import forms from "@tailwindcss/forms";
+
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{vue,js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        "on-primary-fixed-variant": "#184974",
+        "outline": "#72777f",
+        "secondary-container": "#d1e1f7",
+        "primary": "#00375e",
+        "error": "#ba1a1a",
+        "surface-variant": "#e0e3e6",
+        "surface-dim": "#d8dadd",
+        "secondary": "#516072",
+        "on-tertiary": "#ffffff",
+        "error-container": "#ffdad6",
+        "on-surface": "#191c1e",
+        "inverse-surface": "#2d3133",
+        "surface-container-lowest": "#ffffff",
+        "tertiary-fixed-dim": "#f5bc72",
+        "on-tertiary-fixed": "#2a1800",
+        "on-secondary-container": "#556477",
+        "on-error-container": "#93000a",
+        "on-error": "#ffffff",
+        "on-surface-variant": "#42474f",
+        "secondary-fixed-dim": "#b8c8de",
+        "surface-tint": "#35618d",
+        "on-secondary": "#ffffff",
+        "surface": "#f7f9fc",
+        "inverse-primary": "#a0cafc",
+        "on-secondary-fixed": "#0d1d2d",
+        "on-background": "#191c1e",
+        "primary-container": "#1f4e79",
+        "tertiary-fixed": "#ffddb5",
+        "on-tertiary-fixed-variant": "#643f00",
+        "inverse-on-surface": "#eff1f4",
+        "outline-variant": "#c2c7d0",
+        "surface-container": "#eceef1",
+        "tertiary": "#4c2e00",
+        "surface-container-high": "#e6e8eb",
+        "on-primary": "#ffffff",
+        "on-primary-container": "#ffffff",
+        "primary-fixed-dim": "#b8d3ff",
+        "primary-fixed": "#d1e4ff",
+        "surface-bright": "#f7f9fc",
+      },
+      fontFamily: {
+        inter: ["Inter", "sans-serif"],
+      },
+    },
+  },
+  plugins: [
+    forms,
+  ],
+}
