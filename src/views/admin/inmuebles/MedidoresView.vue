@@ -116,7 +116,7 @@ import InputText from 'primevue/inputtext';
 import Tag from 'primevue/tag';
 import Dialog from 'primevue/dialog';
 
-import FormMedidor from '../../components/forms/FormMedidor.vue';
+import FormMedidor from '../../../components/forms/FormMedidor.vue';
 
 const store = useStore();
 const toast = useToast();

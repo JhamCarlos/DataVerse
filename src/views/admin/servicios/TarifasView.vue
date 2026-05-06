@@ -99,7 +99,7 @@ import Dropdown from 'primevue/dropdown';
 import Tag from 'primevue/tag';
 import Dialog from 'primevue/dialog';
 
-import FormTarifa from '../../components/forms/FormTarifa.vue';
+import FormTarifa from '../../../components/forms/FormTarifa.vue';
 
 const store = useStore();
 const toast = useToast();

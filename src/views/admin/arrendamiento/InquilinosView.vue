@@ -111,7 +111,7 @@ import InputText from 'primevue/inputtext';
 import Tag from 'primevue/tag';
 import Dialog from 'primevue/dialog';
 
-import FormInquilino from '../../components/forms/FormInquilino.vue';
+import FormInquilino from '../../../components/forms/FormInquilino.vue';
 
 const store = useStore();
 const toast = useToast();

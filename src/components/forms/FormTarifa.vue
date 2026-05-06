@@ -46,7 +46,7 @@
 
 <script setup>
 import { ref, watch, computed, onMounted } from 'vue';
-import { useStore } from '../../../store/useStore';
+import { useStore } from '../../store/useStore';
 import InputText from 'primevue/inputtext';
 import InputNumber from 'primevue/inputnumber';
 import Dropdown from 'primevue/dropdown';

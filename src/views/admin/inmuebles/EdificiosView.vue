@@ -107,7 +107,7 @@ import InputText from 'primevue/inputtext';
 import Tag from 'primevue/tag';
 import Dialog from 'primevue/dialog';
 
-import FormEdificio from '../../components/forms/FormEdificio.vue';
+import FormEdificio from '../../../components/forms/FormEdificio.vue';
 
 const store = useStore();
 const toast = useToast();

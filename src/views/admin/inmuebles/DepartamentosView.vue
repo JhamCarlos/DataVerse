@@ -119,7 +119,7 @@ import Dropdown from 'primevue/dropdown';
 import Tag from 'primevue/tag';
 import Dialog from 'primevue/dialog';
 
-import FormDepartamento from '../../components/forms/FormDepartamento.vue';
+import FormDepartamento from '../../../components/forms/FormDepartamento.vue';
 
 const store = useStore();
 const toast = useToast();

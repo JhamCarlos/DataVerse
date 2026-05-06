@@ -125,7 +125,7 @@ import InputText from 'primevue/inputtext';
 import Tag from 'primevue/tag';
 import Dialog from 'primevue/dialog';
 
-import FormContrato from '../../components/forms/FormContrato.vue';
+import FormContrato from '../../../components/forms/FormContrato.vue';
 
 const store = useStore();
 const toast = useToast();

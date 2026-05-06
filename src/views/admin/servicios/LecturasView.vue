@@ -117,7 +117,7 @@ import InputText from 'primevue/inputtext';
 import Tag from 'primevue/tag';
 import Dialog from 'primevue/dialog';
 
-import FormLectura from '../../components/forms/FormLectura.vue';
+import FormLectura from '../../../components/forms/FormLectura.vue';
 
 const store = useStore();
 const toast = useToast();
