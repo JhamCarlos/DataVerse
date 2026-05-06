@@ -26,6 +26,11 @@ const state = reactive({
   usuarios: [...mockData.usuarios],
   roles: [...mockData.roles],
   permisos: [...mockData.permisos],
+<<<<<<< HEAD
+=======
+  
+  // KPIs para Dashboard
+>>>>>>> 0cac789bfe3b6808125f326789ffa323255cd901
   kpis: { ...mockData.kpis }
 });
 
