@@ -57,6 +57,14 @@
           <router-link to="/admin/pagos" class="flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 transition-colors" active-class="bg-blue-50 text-blue-700 font-semibold">
             <i class="pi pi-wallet"></i> <span>Pagos</span>
           </router-link>
+
+          <div class="pt-4 pb-2"><p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Mantenimiento</p></div>
+          <router-link to="/admin/personal" class="flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 transition-colors" active-class="bg-blue-50 text-blue-700 font-semibold">
+            <i class="pi pi-user-plus"></i> <span>Personal Técnico</span>
+          </router-link>
+          <router-link to="/admin/gastos" class="flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 transition-colors" active-class="bg-blue-50 text-blue-700 font-semibold">
+            <i class="pi pi-wrench"></i> <span>Gastos Operativos</span>
+          </router-link>
         </nav>
       </aside>
 

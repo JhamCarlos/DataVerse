@@ -63,7 +63,7 @@
     </div>
 
     <!-- Modal Formulario -->
-    <Dialog v-model:visible="formDialog" :style="{width: '500px'}" :header="isEditing ? 'Editar Tarifa' : 'Nueva Tarifa'" :modal="true" class="p-fluid">
+    <Dialog v-model:visible="formDialog" :style="{width: '500px'}" :header="isEditing ? 'Editar Tarifa' : 'Nueva Tarifa'" :modal="true" class="p-fluid" :pt="dialogFormPt">
       <FormTarifa 
         :initialData="tarifaActual" 
         :isEditing="isEditing" 
@@ -73,7 +73,7 @@
     </Dialog>
 
     <!-- Modal Confirmación -->
-    <Dialog v-model:visible="deleteDialog" :style="{width: '450px'}" header="Confirmar Baja" :modal="true">
+    <Dialog v-model:visible="deleteDialog" :style="{width: '450px'}" header="Confirmar Baja" :modal="true" :pt="dialogConfirmPt">
       <div class="flex items-center gap-4">
         <i class="pi pi-exclamation-triangle text-red-500 text-4xl" />
         <span v-if="tarifaActual">¿Deseas marcar esta tarifa como histórica?</span>
@@ -91,6 +91,7 @@
 import { ref, onMounted, computed } from 'vue';
 import { useStore } from '../../../store/useStore';
 import { useToast } from 'primevue/usetoast';
+import { dialogFormPt, dialogConfirmPt } from '../../../utils/dialogPt';
 import Button from 'primevue/button';
 import Toolbar from 'primevue/toolbar';
 import DataTable from 'primevue/datatable';
@@ -99,7 +100,7 @@ import Dropdown from 'primevue/dropdown';
 import Tag from 'primevue/tag';
 import Dialog from 'primevue/dialog';
 
-import FormTarifa from '../../components/forms/FormTarifa.vue';
+import FormTarifa from '../../../components/forms/FormTarifa.vue';
 
 const store = useStore();
 const toast = useToast();

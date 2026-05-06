@@ -30,9 +30,17 @@ const routes = [
       { path: 'contratos', name: 'Contratos', component: () => import('../views/admin/arrendamiento/ContratosView.vue') },
       { path: 'alertas', name: 'Alertas', component: () => import('../views/admin/arrendamiento/AlertasView.vue') },
       
+      // Módulo Servicios
+      { path: 'tarifas', name: 'Tarifas', component: () => import('../views/admin/servicios/TarifasView.vue') },
+      { path: 'lecturas', name: 'Lecturas', component: () => import('../views/admin/servicios/LecturasView.vue') },
+
       // Módulo Finanzas
       { path: 'boletas', name: 'Boletas', component: () => import('../views/admin/finanzas/BoletasView.vue') },
-      { path: 'pagos', name: 'Pagos', component: () => import('../views/admin/finanzas/PagosView.vue') }
+      { path: 'pagos', name: 'Pagos', component: () => import('../views/admin/finanzas/PagosView.vue') },
+
+      // Módulo Mantenimiento
+      { path: 'personal', name: 'Personal', component: () => import('../views/admin/mantenimiento/PersonalView.vue') },
+      { path: 'gastos', name: 'Gastos', component: () => import('../views/admin/mantenimiento/GastosView.vue') }
     ]
   },
 

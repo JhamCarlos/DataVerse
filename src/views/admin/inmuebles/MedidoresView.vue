@@ -79,7 +79,7 @@
     </div>
 
     <!-- Modal Formulario -->
-    <Dialog v-model:visible="formDialog" :style="{width: '550px'}" :header="isEditing ? 'Editar Medidor' : 'Nuevo Medidor'" :modal="true" class="p-fluid">
+    <Dialog v-model:visible="formDialog" :style="{width: '550px'}" :header="isEditing ? 'Editar Medidor' : 'Nuevo Medidor'" :modal="true" class="p-fluid" :pt="dialogFormPt">
       <FormMedidor 
         :initialData="medidorActual" 
         :isEditing="isEditing" 
@@ -89,7 +89,7 @@
     </Dialog>
 
     <!-- Modal Confirmación Eliminar (Soft-Delete) -->
-    <Dialog v-model:visible="deleteDialog" :style="{width: '450px'}" header="Confirmar Baja" :modal="true">
+    <Dialog v-model:visible="deleteDialog" :style="{width: '450px'}" header="Confirmar Baja" :modal="true" :pt="dialogConfirmPt">
       <div class="flex items-center gap-4">
         <i class="pi pi-exclamation-triangle text-red-500 text-4xl" />
         <span v-if="medidorActual">¿Estás seguro de que deseas desactivar el medidor <b>{{ medidorActual.codigo_medidor }}</b>?</span>
@@ -107,6 +107,7 @@
 import { ref, onMounted, computed } from 'vue';
 import { useStore } from '../../../store/useStore';
 import { FilterMatchMode } from '@primevue/core/api';
+import { dialogFormPt, dialogConfirmPt } from '../../../utils/dialogPt';
 import { useToast } from 'primevue/usetoast';
 import Button from 'primevue/button';
 import Toolbar from 'primevue/toolbar';
@@ -116,7 +117,7 @@ import InputText from 'primevue/inputtext';
 import Tag from 'primevue/tag';
 import Dialog from 'primevue/dialog';
 
-import FormMedidor from '../../components/forms/FormMedidor.vue';
+import FormMedidor from '../../../components/forms/FormMedidor.vue';
 
 const store = useStore();
 const toast = useToast();

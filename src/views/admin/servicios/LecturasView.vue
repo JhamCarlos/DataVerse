@@ -80,7 +80,7 @@
     </div>
 
     <!-- Modal Formulario -->
-    <Dialog v-model:visible="formDialog" :style="{width: '550px'}" :header="isEditing ? 'Editar Lectura' : 'Nueva Lectura'" :modal="true" class="p-fluid">
+    <Dialog v-model:visible="formDialog" :style="{width: '550px'}" :header="isEditing ? 'Editar Lectura' : 'Nueva Lectura'" :modal="true" class="p-fluid" :pt="dialogFormPt">
       <FormLectura 
         :initialData="lecturaActual" 
         :isEditing="isEditing" 
@@ -90,7 +90,7 @@
     </Dialog>
 
     <!-- Modal Confirmación -->
-    <Dialog v-model:visible="deleteDialog" :style="{width: '450px'}" header="Confirmar Anulación" :modal="true">
+    <Dialog v-model:visible="deleteDialog" :style="{width: '450px'}" header="Confirmar Anulación" :modal="true" :pt="dialogConfirmPt">
       <div class="flex items-center gap-4">
         <i class="pi pi-exclamation-triangle text-red-500 text-4xl" />
         <span v-if="lecturaActual">¿Deseas anular la lectura del medidor <b>{{ lecturaActual.medidor_codigo }}</b> para el periodo {{ lecturaActual.periodo }}?</span>
@@ -109,6 +109,7 @@ import { ref, onMounted, computed } from 'vue';
 import { useStore } from '../../../store/useStore';
 import { FilterMatchMode } from '@primevue/core/api';
 import { useToast } from 'primevue/usetoast';
+import { dialogFormPt, dialogConfirmPt } from '../../../utils/dialogPt';
 import Button from 'primevue/button';
 import Toolbar from 'primevue/toolbar';
 import DataTable from 'primevue/datatable';
@@ -117,7 +118,7 @@ import InputText from 'primevue/inputtext';
 import Tag from 'primevue/tag';
 import Dialog from 'primevue/dialog';
 
-import FormLectura from '../../components/forms/FormLectura.vue';
+import FormLectura from '../../../components/forms/FormLectura.vue';
 
 const store = useStore();
 const toast = useToast();

@@ -76,7 +76,7 @@
     </div>
 
     <!-- Modal Formulario -->
-    <Dialog v-model:visible="formDialog" :style="{width: '750px'}" :header="isEditing ? 'Editar Contrato' : 'Nuevo Contrato'" :modal="true" class="p-fluid">
+    <Dialog v-model:visible="formDialog" :style="{width: '750px'}" :header="isEditing ? 'Editar Contrato' : 'Nuevo Contrato'" :modal="true" class="p-fluid" :pt="dialogFormPt">
       <FormContrato 
         :initialData="contratoActual" 
         :isEditing="isEditing" 
@@ -86,7 +86,7 @@
     </Dialog>
 
     <!-- Modal Confirmación Finalizar -->
-    <Dialog v-model:visible="finalizarDialog" :style="{width: '450px'}" header="Confirmar Finalización" :modal="true">
+    <Dialog v-model:visible="finalizarDialog" :style="{width: '450px'}" header="Confirmar Finalización" :modal="true" :pt="dialogConfirmPt">
       <div class="flex items-center gap-4">
         <i class="pi pi-info-circle text-blue-500 text-4xl" />
         <span v-if="contratoActual">¿Confirmas que el contrato <b>{{ contratoActual.codigo }}</b> ha concluido de forma regular?</span>
@@ -98,7 +98,7 @@
     </Dialog>
 
     <!-- Modal Confirmación Anular -->
-    <Dialog v-model:visible="anularDialog" :style="{width: '450px'}" header="Confirmar Anulación" :modal="true">
+    <Dialog v-model:visible="anularDialog" :style="{width: '450px'}" header="Confirmar Anulación" :modal="true" :pt="dialogConfirmPt">
       <div class="flex items-center gap-4">
         <i class="pi pi-exclamation-triangle text-red-500 text-4xl" />
         <span v-if="contratoActual">¿Estás seguro de que deseas ANULAR el contrato <b>{{ contratoActual.codigo }}</b>? Esta acción liberará el departamento.</span>
@@ -116,6 +116,7 @@
 import { ref, onMounted } from 'vue';
 import { useStore } from '../../../store/useStore';
 import { FilterMatchMode } from '@primevue/core/api';
+import { dialogFormPt, dialogConfirmPt } from '../../../utils/dialogPt';
 import { useToast } from 'primevue/usetoast';
 import Button from 'primevue/button';
 import Toolbar from 'primevue/toolbar';
@@ -125,7 +126,7 @@ import InputText from 'primevue/inputtext';
 import Tag from 'primevue/tag';
 import Dialog from 'primevue/dialog';
 
-import FormContrato from '../../components/forms/FormContrato.vue';
+import FormContrato from '../../../components/forms/FormContrato.vue';
 
 const store = useStore();
 const toast = useToast();

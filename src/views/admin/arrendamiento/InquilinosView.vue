@@ -74,7 +74,7 @@
     </div>
 
     <!-- Modal Formulario -->
-    <Dialog v-model:visible="formDialog" :style="{width: '650px'}" :header="isEditing ? 'Editar Inquilino' : 'Nuevo Inquilino'" :modal="true" class="p-fluid">
+    <Dialog v-model:visible="formDialog" :style="{width: '650px'}" :header="isEditing ? 'Editar Inquilino' : 'Nuevo Inquilino'" :modal="true" class="p-fluid" :pt="dialogFormPt">
       <FormInquilino 
         :initialData="inquilinoActual" 
         :isEditing="isEditing" 
@@ -84,7 +84,7 @@
     </Dialog>
 
     <!-- Modal Confirmación Eliminar -->
-    <Dialog v-model:visible="deleteDialog" :style="{width: '450px'}" header="Confirmar Baja" :modal="true">
+    <Dialog v-model:visible="deleteDialog" :style="{width: '450px'}" header="Confirmar Baja" :modal="true" :pt="dialogConfirmPt">
       <div class="flex items-center gap-4">
         <i class="pi pi-exclamation-triangle text-red-500 text-4xl" />
         <span v-if="inquilinoActual">¿Estás seguro de que deseas desactivar a <b>{{ inquilinoActual.nombres }} {{ inquilinoActual.apellido_paterno }}</b>?</span>
@@ -102,6 +102,7 @@
 import { ref, onMounted } from 'vue';
 import { useStore } from '../../../store/useStore';
 import { FilterMatchMode } from '@primevue/core/api';
+import { dialogFormPt, dialogConfirmPt } from '../../../utils/dialogPt';
 import { useToast } from 'primevue/usetoast';
 import Button from 'primevue/button';
 import Toolbar from 'primevue/toolbar';
@@ -111,7 +112,7 @@ import InputText from 'primevue/inputtext';
 import Tag from 'primevue/tag';
 import Dialog from 'primevue/dialog';
 
-import FormInquilino from '../../components/forms/FormInquilino.vue';
+import FormInquilino from '../../../components/forms/FormInquilino.vue';
 
 const store = useStore();
 const toast = useToast();

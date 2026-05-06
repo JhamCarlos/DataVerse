@@ -25,7 +25,8 @@ const state = reactive({
   
   usuarios: [...mockData.usuarios],
   roles: [...mockData.roles],
-  permisos: [...mockData.permisos]
+  permisos: [...mockData.permisos],
+  kpis: { ...mockData.kpis }
 });
 
 // Acciones / Mutaciones (simuladas)

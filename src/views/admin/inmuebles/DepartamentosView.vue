@@ -81,7 +81,7 @@
     </div>
 
     <!-- Modal Formulario -->
-    <Dialog v-model:visible="formDialog" :style="{width: '650px'}" :header="isEditing ? 'Editar Departamento' : 'Nuevo Departamento'" :modal="true" class="p-fluid">
+    <Dialog v-model:visible="formDialog" :style="{width: '650px'}" :header="isEditing ? 'Editar Departamento' : 'Nuevo Departamento'" :modal="true" class="p-fluid" :pt="dialogFormPt">
       <FormDepartamento 
         :initialData="deptoActual" 
         :isEditing="isEditing" 
@@ -91,7 +91,7 @@
     </Dialog>
 
     <!-- Modal Confirmación Eliminar (Soft-Delete) -->
-    <Dialog v-model:visible="deleteDialog" :style="{width: '450px'}" header="Confirmar Baja" :modal="true">
+    <Dialog v-model:visible="deleteDialog" :style="{width: '450px'}" header="Confirmar Baja" :modal="true" :pt="dialogConfirmPt">
       <div class="flex items-center gap-4">
         <i class="pi pi-exclamation-triangle text-red-500 text-4xl" />
         <span v-if="deptoActual">¿Estás seguro de que deseas desactivar el departamento <b>{{ deptoActual.numero_dpto }}</b> del edificio {{ deptoActual.nombre_edificio }}?</span>
@@ -109,6 +109,7 @@
 import { ref, onMounted, computed } from 'vue';
 import { useStore } from '../../../store/useStore';
 import { FilterMatchMode } from '@primevue/core/api';
+import { dialogFormPt, dialogConfirmPt } from '../../../utils/dialogPt';
 import { useToast } from 'primevue/usetoast';
 import Button from 'primevue/button';
 import Toolbar from 'primevue/toolbar';
@@ -119,7 +120,7 @@ import Dropdown from 'primevue/dropdown';
 import Tag from 'primevue/tag';
 import Dialog from 'primevue/dialog';
 
-import FormDepartamento from '../../components/forms/FormDepartamento.vue';
+import FormDepartamento from '../../../components/forms/FormDepartamento.vue';
 
 const store = useStore();
 const toast = useToast();
