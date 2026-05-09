@@ -40,7 +40,12 @@ const routes = [
 
       // Módulo Mantenimiento
       { path: 'personal', name: 'Personal', component: () => import('../views/admin/mantenimiento/PersonalView.vue') },
-      { path: 'gastos', name: 'Gastos', component: () => import('../views/admin/mantenimiento/GastosView.vue') }
+      { path: 'gastos', name: 'Gastos', component: () => import('../views/admin/mantenimiento/GastosView.vue') },
+
+      // Módulo Administración (Fase 6)
+      { path: 'usuarios', name: 'Usuarios', component: () => import('../views/admin/administracion/UsuariosView.vue') },
+      { path: 'roles', name: 'Roles', component: () => import('../views/admin/administracion/RolesView.vue') },
+      { path: 'configuracion', name: 'Configuracion', component: () => import('../views/admin/administracion/ConfiguracionView.vue') }
     ]
   },
 
