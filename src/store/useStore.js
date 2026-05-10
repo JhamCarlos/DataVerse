@@ -4,6 +4,7 @@ import { mockData } from '../data/mockData';
 // Estado global de la aplicación (simulado)
 const state = reactive({
   currentUser: null, // Será un objeto de usuario con role 'ADMIN' o 'INQUILINO'
+  mfaPassed: false,  // Nuevo estado para la validación de MFA
   
   // Tablas del Diccionario de Datos
   edificios: [...mockData.edificios],
@@ -33,10 +34,20 @@ const state = reactive({
 
 // Acciones / Mutaciones (simuladas)
 const login = (email, password) => {
-  // Simulamos login. Buscamos en usuarios.
-  const user = state.usuarios.find(u => u.correo === email && password === '123456');
+  // Simulamos login. Buscamos en usuarios por correo o username.
+  const user = state.usuarios.find(u => (u.correo === email || u.username === email) && password === '123456');
   if (user) {
     state.currentUser = user;
+    state.mfaPassed = false; // Requiere pasar el MFA
+    return true;
+  }
+  return false;
+};
+
+const verifyMfa = (code) => {
+  // Para la demo, aceptamos un código estático o si tiene 6 dígitos
+  if (state.currentUser && code && code.length >= 4) { 
+    state.mfaPassed = true;
     return true;
   }
   return false;
@@ -44,10 +55,11 @@ const login = (email, password) => {
 
 const logout = () => {
   state.currentUser = null;
+  state.mfaPassed = false;
 };
 
 // Computados
-const isAuthenticated = computed(() => state.currentUser !== null);
+const isAuthenticated = computed(() => state.currentUser !== null && state.mfaPassed === true);
 const isAdmin = computed(() => state.currentUser?.role === 'ADMIN');
 const isTenant = computed(() => state.currentUser?.role === 'INQUILINO');
 
@@ -55,6 +67,7 @@ export const useStore = () => {
   return {
     state,
     login,
+    verifyMfa,
     logout,
     isAuthenticated,
     isAdmin,

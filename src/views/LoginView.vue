@@ -22,12 +22,19 @@
         <!-- Header Section -->
         <div class="mb-8">
           <h1 class="text-2xl font-bold text-primary tracking-tight">
-            Iniciar sesión
+            {{ step === 1 ? 'Iniciar sesión' : 'Verificación en dos pasos' }}
           </h1>
+          <p v-if="step === 2" class="text-sm text-on-surface-variant mt-2">
+            Ingresa el código enviado a tu aplicación de autenticación (Ej. 123456).
+          </p>
         </div>
 
-        <!-- Login Form -->
-        <form @submit.prevent="handleLogin" class="space-y-6">
+        <div v-if="errorMsg" class="mb-4 p-3 bg-red-100 text-red-700 text-sm rounded-lg">
+          {{ errorMsg }}
+        </div>
+
+        <!-- Login Form Step 1 -->
+        <form v-if="step === 1" @submit.prevent="handleLogin" class="space-y-6">
           <!-- Username/Email Field -->
           <div class="space-y-1.5">
             <label
@@ -90,6 +97,39 @@
             type="submit"
           >
             Ingresar
+          </button>
+        </form>
+
+        <!-- MFA Form Step 2 -->
+        <form v-else-if="step === 2" @submit.prevent="handleMfa" class="space-y-6">
+          <div class="space-y-1.5">
+            <label class="block text-[13px] font-medium text-on-surface-variant tracking-wide" for="mfaCode">
+              Código de verificación
+            </label>
+            <div class="relative">
+              <input
+                v-model="form.mfaCode"
+                class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-lg py-3 px-4 text-[14px] text-on-surface focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all duration-200 outline-none placeholder:text-slate-400"
+                id="mfaCode"
+                name="mfaCode"
+                placeholder="123456"
+                type="text"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+          <button
+            class="w-full bg-primary-container text-white py-3.5 rounded-lg font-bold text-[15px] shadow-sm hover:opacity-95 active:scale-[0.98] transition-all duration-200 flex items-center justify-center"
+            type="submit"
+          >
+            Verificar y Entrar
+          </button>
+          <button
+            class="w-full mt-2 text-primary text-[14px] font-medium hover:underline flex items-center justify-center"
+            type="button"
+            @click="step = 1; store.logout()"
+          >
+            Volver
           </button>
         </form>
 
@@ -156,18 +196,44 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useStore } from '../store/useStore';
 
 const router = useRouter();
+const store = useStore();
+
 const showPassword = ref(false);
+const step = ref(1);
+const errorMsg = ref('');
+
 const form = ref({
   email: '',
   password: '',
+  mfaCode: '',
 });
 
 const handleLogin = () => {
+  errorMsg.value = '';
   if (form.value.email && form.value.password) {
-    console.log('Login attempt:', form.value);
-    router.push('/dashboard');
+    const success = store.login(form.value.email, form.value.password);
+    if (success) {
+      step.value = 2;
+    } else {
+      errorMsg.value = 'Usuario o contraseña incorrectos';
+    }
+  }
+};
+
+const handleMfa = () => {
+  errorMsg.value = '';
+  if (form.value.mfaCode) {
+    const success = store.verifyMfa(form.value.mfaCode);
+    if (success) {
+      if (store.isAdmin.value) router.push('/admin/dashboard');
+      else if (store.isTenant.value) router.push('/tenant/dashboard');
+      else router.push('/');
+    } else {
+      errorMsg.value = 'Código de verificación incorrecto';
+    }
   }
 };
 </script>
