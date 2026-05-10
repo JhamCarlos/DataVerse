@@ -24,13 +24,15 @@
 
     <!-- Data Table PrimeVue -->
     <div class="bg-white p-4 border border-gray-200 shadow-sm rounded-lg">
-      <DataTable ref="dt" :value="edificios" dataKey="id" :paginator="true" :rows="10" 
+      <DataTable ref="dt" v-model:expandedRows="expandedRows" :value="edificios" dataKey="id" :paginator="true" :rows="10" 
                  :filters="filters" filterDisplay="menu" :globalFilterFields="['nombre', 'direccion', 'distrito']"
                  responsiveLayout="scroll" :rowHover="true" class="p-datatable-sm">
                  
         <template #empty>
           <div class="text-center py-8 text-gray-500">No se encontraron edificios registrados.</div>
         </template>
+
+        <Column expander style="width: 3rem" />
 
         <Column field="nombre" header="Nombre" sortable style="min-width: 14rem">
           <template #body="{ data }">
@@ -66,6 +68,28 @@
             </div>
           </template>
         </Column>
+
+        <!-- Master-Detail Expansion -->
+        <template #expansion="slotProps">
+          <div class="p-4 bg-gray-50 rounded-lg border border-gray-200 ml-10 my-2">
+            <h5 class="text-md font-bold mb-3 text-gray-800">Departamentos del {{ slotProps.data.nombre }}</h5>
+            <DataTable :value="getDepartamentosByEdificio(slotProps.data.id)" class="p-datatable-sm shadow-sm" responsiveLayout="scroll">
+              <template #empty>
+                <div class="text-gray-500 py-3 text-sm">No hay departamentos registrados para este edificio.</div>
+              </template>
+              <Column field="numero_dpto" header="N° Dpto" />
+              <Column field="piso" header="Piso" />
+              <Column field="area_m2" header="Área (m²)" />
+              <Column field="num_habitaciones" header="Habitaciones" />
+              <Column field="estado_ocupacion" header="Ocupación">
+                <template #body="{ data }">
+                  <Tag :severity="getOcupacionSeverity(data.estado_ocupacion)" :value="data.estado_ocupacion" />
+                </template>
+              </Column>
+            </DataTable>
+          </div>
+        </template>
+
       </DataTable>
     </div>
 
@@ -119,10 +143,19 @@ const formDialog = ref(false);
 const deleteDialog = ref(false);
 const isEditing = ref(false);
 const edificioActual = ref({});
+const expandedRows = ref({});
 
 const filters = ref({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
 });
+
+const getDepartamentosByEdificio = (idEdificio) => {
+  return store.state.departamentos.filter(d => d.id_edificio === idEdificio && d.estado === 1);
+};
+
+const getOcupacionSeverity = (estado) => {
+  return estado === 'DISPONIBLE' ? 'success' : 'danger';
+};
 
 onMounted(() => {
   // Simular fetch de base de datos

@@ -24,13 +24,15 @@
 
     <!-- Data Table PrimeVue -->
     <div class="bg-white p-4 border border-gray-200 shadow-sm rounded-lg">
-      <DataTable ref="dt" :value="contratos" dataKey="id" :paginator="true" :rows="10" 
+      <DataTable ref="dt" v-model:expandedRows="expandedRows" :value="contratos" dataKey="id" :paginator="true" :rows="10" 
                  :filters="filters" filterDisplay="menu" :globalFilterFields="['codigo', 'inquilino_nombre', 'departamento_numero']"
                  responsiveLayout="scroll" :rowHover="true" class="p-datatable-sm">
                  
         <template #empty>
           <div class="text-center py-8 text-gray-500">No se encontraron contratos registrados.</div>
         </template>
+
+        <Column expander style="width: 3rem" />
 
         <Column field="codigo" header="Código" sortable style="min-width: 10rem">
           <template #body="{ data }">
@@ -72,6 +74,32 @@
             </div>
           </template>
         </Column>
+
+        <!-- Master-Detail Expansion -->
+        <template #expansion="slotProps">
+          <div class="p-4 bg-gray-50 rounded-lg border border-gray-200 ml-10 my-2">
+            <h5 class="text-md font-bold mb-3 text-gray-800">Boletas del Contrato: {{ slotProps.data.codigo }}</h5>
+            <DataTable :value="getBoletasByContrato(slotProps.data.id)" class="p-datatable-sm shadow-sm" responsiveLayout="scroll">
+              <template #empty>
+                <div class="text-gray-500 py-3 text-sm">No hay boletas generadas para este contrato.</div>
+              </template>
+              <Column field="periodo" header="Periodo" />
+              <Column field="fecha_emision" header="Fecha de Emisión" />
+              <Column field="fecha_vencimiento" header="Vencimiento" />
+              <Column field="monto_total" header="Total">
+                <template #body="{ data }">
+                  <span class="font-bold text-primary">${{ data.monto_total.toFixed(2) }}</span>
+                </template>
+              </Column>
+              <Column field="estado_boleta" header="Estado">
+                <template #body="{ data }">
+                  <Tag :severity="getBoletaSeverity(data.estado_boleta)" :value="data.estado_boleta" />
+                </template>
+              </Column>
+            </DataTable>
+          </div>
+        </template>
+
       </DataTable>
     </div>
 
@@ -140,10 +168,25 @@ const finalizarDialog = ref(false);
 const anularDialog = ref(false);
 const isEditing = ref(false);
 const contratoActual = ref({});
+const expandedRows = ref({});
 
 const filters = ref({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
 });
+
+const getBoletasByContrato = (idContrato) => {
+  return store.state.boletas.filter(b => b.id_contrato === idContrato && b.estado === 1);
+};
+
+const getBoletaSeverity = (estado) => {
+  switch (estado) {
+    case 'PAGADA': return 'success';
+    case 'PENDIENTE': return 'warning';
+    case 'VENCIDA': return 'danger';
+    case 'ANULADA': return 'info';
+    default: return 'info';
+  }
+};
 
 const getEstadoSeverity = (estado) => {
   switch(estado) {
