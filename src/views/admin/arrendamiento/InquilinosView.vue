@@ -99,7 +99,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, computed } from 'vue';
 import { useStore } from '../../../store/useStore';
 import { FilterMatchMode } from '@primevue/core/api';
 import { dialogFormPt, dialogConfirmPt } from '../../../utils/dialogPt';
@@ -117,7 +117,9 @@ import FormInquilino from '../../../components/forms/FormInquilino.vue';
 const store = useStore();
 const toast = useToast();
 
-const inquilinos = ref([]);
+// Usar computed para siempre obtener datos actualizados del store
+const inquilinos = computed(() => store.state.inquilinos);
+
 const dt = ref();
 const formDialog = ref(false);
 const deleteDialog = ref(false);
@@ -126,10 +128,6 @@ const inquilinoActual = ref({});
 
 const filters = ref({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-});
-
-onMounted(() => {
-  inquilinos.value = store.state.inquilinos;
 });
 
 const openNew = () => {
@@ -146,16 +144,14 @@ const editInquilino = (inquilino) => {
 
 const saveInquilino = (data) => {
   if (isEditing.value) {
-    const index = inquilinos.value.findIndex(i => i.id === data.id);
+    const index = store.state.inquilinos.findIndex(i => i.id === data.id);
     if (index !== -1) {
-      inquilinos.value[index] = data;
-      store.state.inquilinos = [...inquilinos.value];
+      store.state.inquilinos[index] = data;
     }
     toast.add({severity:'success', summary: 'Actualizado', detail: 'Inquilino actualizado', life: 3000});
   } else {
-    data.id = Math.max(...inquilinos.value.map(i => i.id), 0) + 1;
-    inquilinos.value.unshift(data);
-    store.state.inquilinos = [...inquilinos.value];
+    data.id = Math.max(...store.state.inquilinos.map(i => i.id), 0) + 1;
+    store.state.inquilinos.unshift(data);
     toast.add({severity:'success', summary: 'Creado', detail: 'Inquilino registrado', life: 3000});
   }
   formDialog.value = false;
@@ -173,20 +169,18 @@ const confirmDelete = (inquilino) => {
 };
 
 const deleteInquilino = () => {
-  const index = inquilinos.value.findIndex(i => i.id === inquilinoActual.value.id);
+  const index = store.state.inquilinos.findIndex(i => i.id === inquilinoActual.value.id);
   if (index !== -1) {
-    inquilinos.value[index].estado = 0;
-    store.state.inquilinos = [...inquilinos.value];
+    store.state.inquilinos[index].estado = 0;
   }
   deleteDialog.value = false;
   toast.add({severity:'success', summary: 'Baja Exitosa', detail: 'El inquilino ha sido desactivado', life: 3000});
 };
 
 const restoreInquilino = (inquilino) => {
-  const index = inquilinos.value.findIndex(i => i.id === inquilino.id);
+  const index = store.state.inquilinos.findIndex(i => i.id === inquilino.id);
   if (index !== -1) {
-    inquilinos.value[index].estado = 1;
-    store.state.inquilinos = [...inquilinos.value];
+    store.state.inquilinos[index].estado = 1;
   }
   toast.add({severity:'info', summary: 'Restaurado', detail: 'El inquilino ha sido activado', life: 3000});
 };

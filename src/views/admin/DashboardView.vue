@@ -5,6 +5,13 @@
         <h2 class="text-2xl font-bold text-gray-800 tracking-tight">Dashboard Principal</h2>
         <p class="text-sm text-gray-500 mt-1">Resumen general de las operaciones</p>
       </div>
+      <router-link
+        to="/admin/financial-dashboard"
+        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+      >
+        <i class="pi pi-chart-pie"></i>
+        <span>Dashboard Financiero</span>
+      </router-link>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
@@ -42,27 +49,58 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { computed } from 'vue';
 import { useStore } from '../../store/useStore';
 
 const store = useStore();
 
-const stats = ref([
-  { id: 1, label: 'Total Departamentos', value: '0', icon: 'pi pi-building', color: '#3B82F6' },
-  { id: 2, label: 'Total Inquilinos', value: '0', icon: 'pi pi-users', color: '#10B981' },
-  { id: 3, label: 'Contratos Activos', value: '0', icon: 'pi pi-file', color: '#F59E0B' },
-  { id: 4, label: 'Pagos Pendientes', value: '$0', icon: 'pi pi-wallet', color: '#EF4444' },
+const stats = computed(() => [
+  {
+    id: 1,
+    label: 'Total Departamentos',
+    value: store.totalDepartamentos.value,
+    icon: 'pi pi-building',
+    color: '#3B82F6'
+  },
+  {
+    id: 2,
+    label: 'Total Inquilinos',
+    value: store.totalInquilinos.value,
+    icon: 'pi pi-users',
+    color: '#10B981'
+  },
+  {
+    id: 3,
+    label: 'Contratos Activos',
+    value: store.contratosActivos.value,
+    icon: 'pi pi-file',
+    color: '#F59E0B'
+  },
+  {
+    id: 4,
+    label: 'Pagos Pendientes',
+    value: `$${store.pagosPendientes.value.toFixed(2)}`,
+    icon: 'pi pi-wallet',
+    color: '#EF4444'
+  },
 ]);
 
-const recentActivities = ref([
-  { id: 1, title: 'Nuevo Contrato Registrado', description: 'Contrato para el departamento 301 - Juan Pérez', time: 'Hace 2 horas', icon: 'pi pi-file', color: '#3B82F6' },
-  { id: 2, title: 'Pago Recibido', description: '$1,200.00 - Departamento 401', time: 'Hace 4 horas', icon: 'pi pi-wallet', color: '#10B981' },
-]);
-
-onMounted(() => {
-  stats.value[0].value = store.state.kpis.totalDepartamentos;
-  stats.value[1].value = store.state.kpis.totalInquilinos;
-  stats.value[2].value = store.state.kpis.contratosActivos;
-  stats.value[3].value = `$${store.state.kpis.pagosPendientes}`;
-});
+const recentActivities = [
+  {
+    id: 1,
+    title: 'Nuevo Contrato Registrado',
+    description: 'Contrato para el departamento 301 - Juan Pérez',
+    time: 'Hace 2 horas',
+    icon: 'pi pi-file',
+    color: '#3B82F6'
+  },
+  {
+    id: 2,
+    title: 'Pago Recibido',
+    description: '$1,200.00 - Departamento 401',
+    time: 'Hace 4 horas',
+    icon: 'pi pi-wallet',
+    color: '#10B981'
+  },
+];
 </script>

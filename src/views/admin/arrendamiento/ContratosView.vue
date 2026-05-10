@@ -113,7 +113,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, computed } from 'vue';
 import { useStore } from '../../../store/useStore';
 import { FilterMatchMode } from '@primevue/core/api';
 import { dialogFormPt, dialogConfirmPt } from '../../../utils/dialogPt';
@@ -131,7 +131,9 @@ import FormContrato from '../../../components/forms/FormContrato.vue';
 const store = useStore();
 const toast = useToast();
 
-const contratos = ref([]);
+// Usar computed para siempre obtener datos actualizados del store
+const contratos = computed(() => store.state.contratos.filter(c => c.estado === 1));
+
 const dt = ref();
 const formDialog = ref(false);
 const finalizarDialog = ref(false);
@@ -141,10 +143,6 @@ const contratoActual = ref({});
 
 const filters = ref({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-});
-
-onMounted(() => {
-  contratos.value = store.state.contratos;
 });
 
 const getEstadoSeverity = (estado) => {
@@ -171,16 +169,14 @@ const editContrato = (contrato) => {
 
 const saveContrato = (data) => {
   if (isEditing.value) {
-    const index = contratos.value.findIndex(c => c.id === data.id);
+    const index = store.state.contratos.findIndex(c => c.id === data.id);
     if (index !== -1) {
-      contratos.value[index] = data;
-      store.state.contratos = [...contratos.value];
+      store.state.contratos[index] = data;
     }
     toast.add({severity:'success', summary: 'Actualizado', detail: 'Contrato modificado', life: 3000});
   } else {
-    data.id = Math.max(...contratos.value.map(c => c.id), 0) + 1;
-    contratos.value.unshift(data);
-    store.state.contratos = [...contratos.value];
+    data.id = Math.max(...store.state.contratos.map(c => c.id), 0) + 1;
+    store.state.contratos.unshift(data);
     toast.add({severity:'success', summary: 'Generado', detail: 'Contrato registrado', life: 3000});
   }
   formDialog.value = false;
@@ -192,10 +188,9 @@ const confirmFinalizar = (contrato) => {
 };
 
 const finalizarContrato = () => {
-  const index = contratos.value.findIndex(c => c.id === contratoActual.value.id);
+  const index = store.state.contratos.findIndex(c => c.id === contratoActual.value.id);
   if (index !== -1) {
-    contratos.value[index].estado_contrato = 'FINALIZADO';
-    store.state.contratos = [...contratos.value];
+    store.state.contratos[index].estado_contrato = 'FINALIZADO';
   }
   finalizarDialog.value = false;
   toast.add({severity:'success', summary: 'Contrato Finalizado', detail: 'El contrato concluyó exitosamente', life: 3000});
@@ -207,13 +202,12 @@ const confirmAnular = (contrato) => {
 };
 
 const anularContrato = () => {
-  const index = contratos.value.findIndex(c => c.id === contratoActual.value.id);
+  const index = store.state.contratos.findIndex(c => c.id === contratoActual.value.id);
   if (index !== -1) {
-    contratos.value[index].estado_contrato = 'ANULADO';
-    store.state.contratos = [...contratos.value];
+    store.state.contratos[index].estado_contrato = 'ANULADO';
     
     // Simulación del Trigger de la BD: Liberar el departamento
-    const idDepto = contratos.value[index].id_departamento;
+    const idDepto = store.state.contratos[index].id_departamento;
     const iDepto = store.state.departamentos.findIndex(d => d.id === idDepto);
     if(iDepto !== -1) {
       store.state.departamentos[iDepto].estado_ocupacion = 'DISPONIBLE';

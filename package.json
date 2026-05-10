@@ -11,10 +11,12 @@
   "dependencies": {
     "@primevue/themes": "^4.5.4",
     "autoprefixer": "^10.5.0",
+    "chart.js": "^4.5.1",
     "postcss": "^8.5.10",
     "primeicons": "^7.0.0",
     "primevue": "^4.5.5",
     "vue": "^3.5.33",
+    "vue-chartjs": "^5.3.3",
     "vue-router": "^5.0.6"
   },
   "devDependencies": {

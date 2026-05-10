@@ -24,7 +24,13 @@ export const mockData = {
     { id: 1, id_edificio: 1, nombre_edificio: 'Edificio Central', numero_dpto: '301', piso: 3, area_m2: 85.50, num_habitaciones: 2, num_banos: 1, estado_ocupacion: 'OCUPADO', estado: 1 },
     { id: 2, id_edificio: 1, nombre_edificio: 'Edificio Central', numero_dpto: '302', piso: 3, area_m2: 90.00, num_habitaciones: 3, num_banos: 2, estado_ocupacion: 'OCUPADO', estado: 1 },
     { id: 3, id_edificio: 1, nombre_edificio: 'Edificio Central', numero_dpto: '401', piso: 4, area_m2: 85.50, num_habitaciones: 2, num_banos: 1, estado_ocupacion: 'DISPONIBLE', estado: 1 },
-    { id: 4, id_edificio: 2, nombre_edificio: 'Torre Norte', numero_dpto: '101', piso: 1, area_m2: 120.00, num_habitaciones: 3, num_banos: 2, estado_ocupacion: 'OCUPADO', estado: 1 }
+    { id: 4, id_edificio: 2, nombre_edificio: 'Torre Norte', numero_dpto: '101', piso: 1, area_m2: 120.00, num_habitaciones: 3, num_banos: 2, estado_ocupacion: 'OCUPADO', estado: 1 },
+    { id: 5, id_edificio: 1, nombre_edificio: 'Edificio Central', numero_dpto: '402', piso: 4, area_m2: 88.00, num_habitaciones: 2, num_banos: 1, estado_ocupacion: 'OCUPADO', estado: 1 },
+    { id: 6, id_edificio: 1, nombre_edificio: 'Edificio Central', numero_dpto: '501', piso: 5, area_m2: 92.00, num_habitaciones: 3, num_banos: 2, estado_ocupacion: 'DISPONIBLE', estado: 1 },
+    { id: 7, id_edificio: 2, nombre_edificio: 'Torre Norte', numero_dpto: '102', piso: 1, area_m2: 118.00, num_habitaciones: 3, num_banos: 2, estado_ocupacion: 'OCUPADO', estado: 1 },
+    { id: 8, id_edificio: 2, nombre_edificio: 'Torre Norte', numero_dpto: '201', piso: 2, area_m2: 115.00, num_habitaciones: 2, num_banos: 2, estado_ocupacion: 'OCUPADO', estado: 1 },
+    { id: 9, id_edificio: 1, nombre_edificio: 'Edificio Central', numero_dpto: '502', piso: 5, area_m2: 90.00, num_habitaciones: 2, num_banos: 1, estado_ocupacion: 'DISPONIBLE', estado: 1 },
+    { id: 10, id_edificio: 2, nombre_edificio: 'Torre Norte', numero_dpto: '202', piso: 2, area_m2: 120.00, num_habitaciones: 3, num_banos: 2, estado_ocupacion: 'DISPONIBLE', estado: 1 },
   ],
   medidores: [
     { id: 1, id_edificio: 1, codigo_medidor: 'MED-AGUA-GEN-1', tipo_servicio: 'AGUA', es_general: true, estado: 1 },
@@ -68,10 +74,21 @@ export const mockData = {
   // MÓDULO FINANZAS
   boletas: [
     { id: 1, id_contrato: 1, contrato_codigo: 'CTR-2024-001', periodo: '2024-04', fecha_emision: '2024-04-01', fecha_vencimiento: '2024-04-05', monto_alquiler: 1200.00, monto_agua: 175.00, monto_luz: 127.50, monto_mantenimiento: 150.00, monto_total: 1652.50, estado_boleta: 'PAGADA', estado: 1 },
-    { id: 2, id_contrato: 2, contrato_codigo: 'CTR-2024-002', periodo: '2024-04', fecha_emision: '2024-04-10', fecha_vencimiento: '2024-04-15', monto_alquiler: 1500.00, monto_agua: 200.00, monto_luz: 180.00, monto_mantenimiento: 200.00, monto_total: 2080.00, estado_boleta: 'PENDIENTE', estado: 1 }
+    { id: 2, id_contrato: 2, contrato_codigo: 'CTR-2024-002', periodo: '2024-04', fecha_emision: '2024-04-10', fecha_vencimiento: '2024-04-15', monto_alquiler: 1500.00, monto_agua: 200.00, monto_luz: 180.00, monto_mantenimiento: 200.00, monto_total: 2080.00, estado_boleta: 'PENDIENTE', estado: 1 },
+    { id: 3, id_contrato: 1, contrato_codigo: 'CTR-2024-001', periodo: '2024-05', fecha_emision: '2024-05-01', fecha_vencimiento: '2024-05-05', monto_alquiler: 1200.00, monto_agua: 180.00, monto_luz: 135.00, monto_mantenimiento: 150.00, monto_total: 1665.00, estado_boleta: 'PAGADA', estado: 1 },
+    { id: 4, id_contrato: 2, contrato_codigo: 'CTR-2024-002', periodo: '2024-05', fecha_emision: '2024-05-10', fecha_vencimiento: '2024-05-15', monto_alquiler: 1500.00, monto_agua: 210.00, monto_luz: 190.00, monto_mantenimiento: 200.00, monto_total: 2100.00, estado_boleta: 'PAGADA', estado: 1 },
+    { id: 5, id_contrato: 1, contrato_codigo: 'CTR-2024-001', periodo: '2024-06', fecha_emision: '2024-06-01', fecha_vencimiento: '2024-06-05', monto_alquiler: 1200.00, monto_agua: 170.00, monto_luz: 130.00, monto_mantenimiento: 150.00, monto_total: 1650.00, estado_boleta: 'PAGADA', estado: 1 },
+    { id: 6, id_contrato: 2, contrato_codigo: 'CTR-2024-002', periodo: '2024-06', fecha_emision: '2024-06-10', fecha_vencimiento: '2024-06-15', monto_alquiler: 1500.00, monto_agua: 220.00, monto_luz: 200.00, monto_mantenimiento: 200.00, monto_total: 2120.00, estado_boleta: 'PAGADA', estado: 1 },
+    { id: 7, id_contrato: 1, contrato_codigo: 'CTR-2024-001', periodo: '2024-07', fecha_emision: '2024-07-01', fecha_vencimiento: '2024-07-05', monto_alquiler: 1200.00, monto_agua: 165.00, monto_luz: 128.00, monto_mantenimiento: 150.00, monto_total: 1643.00, estado_boleta: 'PENDIENTE', estado: 1 },
+    { id: 8, id_contrato: 2, contrato_codigo: 'CTR-2024-002', periodo: '2024-07', fecha_emision: '2024-07-10', fecha_vencimiento: '2024-07-15', monto_alquiler: 1500.00, monto_agua: 215.00, monto_luz: 195.00, monto_mantenimiento: 200.00, monto_total: 2110.00, estado_boleta: 'PAGADA', estado: 1 },
   ],
   pagos: [
-    { id: 1, id_boleta: 1, boleta_periodo: '2024-04', fecha_pago: '2024-04-04 10:30:00', monto_pagado: 1652.50, id_tipo_pago: 'TRANSFERENCIA', numero_operacion: 'OP-001122', estado_validacion: 'APROBADO', estado: 1 }
+    { id: 1, id_boleta: 1, boleta_periodo: '2024-04', fecha_pago: '2024-04-04 10:30:00', monto_pagado: 1652.50, id_tipo_pago: 'TRANSFERENCIA', numero_operacion: 'OP-001122', estado_validacion: 'APROBADO', estado: 1 },
+    { id: 2, id_boleta: 3, boleta_periodo: '2024-05', fecha_pago: '2024-05-04 14:15:00', monto_pagado: 1665.00, id_tipo_pago: 'DEPOSITO', numero_operacion: 'OP-001123', estado_validacion: 'APROBADO', estado: 1 },
+    { id: 3, id_boleta: 4, boleta_periodo: '2024-05', fecha_pago: '2024-05-12 09:45:00', monto_pagado: 2100.00, id_tipo_pago: 'TRANSFERENCIA', numero_operacion: 'OP-001124', estado_validacion: 'APROBADO', estado: 1 },
+    { id: 4, id_boleta: 5, boleta_periodo: '2024-06', fecha_pago: '2024-06-03 11:20:00', monto_pagado: 1650.00, id_tipo_pago: 'TRANSFERENCIA', numero_operacion: 'OP-001125', estado_validacion: 'APROBADO', estado: 1 },
+    { id: 5, id_boleta: 6, boleta_periodo: '2024-06', fecha_pago: '2024-06-13 15:30:00', monto_pagado: 2120.00, id_tipo_pago: 'DEPOSITO', numero_operacion: 'OP-001126', estado_validacion: 'APROBADO', estado: 1 },
+    { id: 6, id_boleta: 8, boleta_periodo: '2024-07', fecha_pago: '2024-07-14 10:00:00', monto_pagado: 2110.00, id_tipo_pago: 'TRANSFERENCIA', numero_operacion: 'OP-001127', estado_validacion: 'APROBADO', estado: 1 },
   ],
 
   // KPI y Dashboard
