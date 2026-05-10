@@ -19,6 +19,7 @@ const routes = [
     meta: { requiresAuth: true, role: 'ADMIN' },
     children: [
       { path: 'dashboard', name: 'AdminDashboard', component: () => import('../views/admin/DashboardView.vue') },
+      { path: 'financial-dashboard', name: 'FinancialDashboard', component: () => import('../views/admin/FinancialDashboardView.vue') },
       
       // Módulo Inmuebles
       { path: 'edificios', name: 'Edificios', component: () => import('../views/admin/inmuebles/EdificiosView.vue') },

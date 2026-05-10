@@ -106,7 +106,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, computed } from 'vue';
 import { useStore } from '../../../store/useStore';
 import { FilterMatchMode } from '@primevue/core/api';
 import { dialogFormPt, dialogConfirmPt } from '../../../utils/dialogPt';
@@ -125,8 +125,7 @@ import FormDepartamento from '../../../components/forms/FormDepartamento.vue';
 const store = useStore();
 const toast = useToast();
 
-const departamentos = ref([]);
-const edificios = ref([]);
+const edificios = computed(() => store.state.edificios.filter(e => e.estado === 1));
 const dt = ref();
 const formDialog = ref(false);
 const deleteDialog = ref(false);
@@ -138,10 +137,8 @@ const filters = ref({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
 });
 
-onMounted(() => {
-  departamentos.value = store.state.departamentos;
-  edificios.value = store.state.edificios.filter(e => e.estado === 1); // Solo edificios activos para el filtro
-});
+// Usar computed para siempre obtener datos actualizados del store
+const departamentos = computed(() => store.state.departamentos);
 
 const departamentosFiltrados = computed(() => {
   if (filtroEdificio.value) {
@@ -178,16 +175,14 @@ const editDepartamento = (depto) => {
 
 const saveDepartamento = (data) => {
   if (isEditing.value) {
-    const index = departamentos.value.findIndex(d => d.id === data.id);
+    const index = store.state.departamentos.findIndex(d => d.id === data.id);
     if (index !== -1) {
-      departamentos.value[index] = data;
-      store.state.departamentos = [...departamentos.value];
+      store.state.departamentos[index] = data;
     }
     toast.add({severity:'success', summary: 'Actualizado', detail: 'Departamento actualizado', life: 3000});
   } else {
-    data.id = Math.max(...departamentos.value.map(d => d.id), 0) + 1;
-    departamentos.value.unshift(data);
-    store.state.departamentos = [...departamentos.value];
+    data.id = Math.max(...store.state.departamentos.map(d => d.id), 0) + 1;
+    store.state.departamentos.unshift(data);
     toast.add({severity:'success', summary: 'Creado', detail: 'Departamento registrado', life: 3000});
   }
   formDialog.value = false;
@@ -203,20 +198,18 @@ const confirmDelete = (depto) => {
 };
 
 const deleteDepartamento = () => {
-  const index = departamentos.value.findIndex(d => d.id === deptoActual.value.id);
+  const index = store.state.departamentos.findIndex(d => d.id === deptoActual.value.id);
   if (index !== -1) {
-    departamentos.value[index].estado = 0;
-    store.state.departamentos = [...departamentos.value];
+    store.state.departamentos[index].estado = 0;
   }
   deleteDialog.value = false;
   toast.add({severity:'success', summary: 'Baja Exitosa', detail: 'El departamento ha sido desactivado', life: 3000});
 };
 
 const restoreDepartamento = (depto) => {
-  const index = departamentos.value.findIndex(d => d.id === depto.id);
+  const index = store.state.departamentos.findIndex(d => d.id === depto.id);
   if (index !== -1) {
-    departamentos.value[index].estado = 1;
-    store.state.departamentos = [...departamentos.value];
+    store.state.departamentos[index].estado = 1;
   }
   toast.add({severity:'info', summary: 'Restaurado', detail: 'El departamento ha sido activado', life: 3000});
 };

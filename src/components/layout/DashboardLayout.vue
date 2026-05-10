@@ -51,6 +51,9 @@
           </router-link>
 
           <div class="pt-4 pb-2"><p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Finanzas</p></div>
+          <router-link to="/admin/financial-dashboard" class="flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 transition-colors" active-class="bg-blue-50 text-blue-700 font-semibold">
+            <i class="pi pi-chart-pie"></i> <span>Dashboard Financiero</span>
+          </router-link>
           <router-link to="/admin/boletas" class="flex items-center gap-3 px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100 transition-colors" active-class="bg-blue-50 text-blue-700 font-semibold">
             <i class="pi pi-receipt"></i> <span>Boletas</span>
           </router-link>

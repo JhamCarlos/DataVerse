@@ -58,6 +58,63 @@ const logout = () => {
   state.mfaPassed = false;
 };
 
+// Computadores para KPIs - Cálculos en tiempo real
+const totalDepartamentos = computed(() => state.departamentos.length);
+
+const ocupacion = computed(() => {
+  if (state.departamentos.length === 0) return 0;
+  const ocupados = state.departamentos.filter(d => d.estado_ocupacion === 'OCUPADO').length;
+  return Math.round((ocupados / state.departamentos.length) * 100);
+});
+
+const morosidad = computed(() => {
+  // Boletas pendientes o vencidas no pagadas
+  const hoy = new Date();
+  const boletasAtrasadas = state.boletas.filter(b => {
+    const fechaVencimiento = new Date(b.fecha_vencimiento);
+    return b.estado_boleta === 'PENDIENTE' && fechaVencimiento < hoy;
+  });
+  
+  return boletasAtrasadas.reduce((sum, b) => sum + b.monto_total, 0);
+});
+
+const boletasPendientes = computed(() => {
+  return state.boletas.filter(b => b.estado_boleta === 'PENDIENTE').length;
+});
+
+const ingresos = computed(() => {
+  // Suma de pagos procesados (boletas pagadas)
+  return state.pagos.reduce((sum, p) => sum + p.monto_pagado, 0);
+});
+
+const boletasPagadas = computed(() => {
+  return state.boletas.filter(b => b.estado_boleta === 'PAGADA').length;
+});
+
+const departamentosOcupados = computed(() => {
+  return state.departamentos.filter(d => d.estado_ocupacion === 'OCUPADO').length;
+});
+
+const departamentosDisponibles = computed(() => {
+  return state.departamentos.filter(d => d.estado_ocupacion === 'DISPONIBLE').length;
+});
+
+// KPIs adicionales para Dashboard Principal
+const totalInquilinos = computed(() => {
+  return state.inquilinos.length;
+});
+
+const contratosActivos = computed(() => {
+  return state.contratos.filter(c => c.estado_contrato === 'ACTIVO').length;
+});
+
+const pagosPendientes = computed(() => {
+  // Suma de boletas pendientes (no pagadas)
+  return state.boletas
+    .filter(b => b.estado_boleta === 'PENDIENTE')
+    .reduce((sum, b) => sum + b.monto_total, 0);
+});
+
 // Computados
 const isAuthenticated = computed(() => state.currentUser !== null && state.mfaPassed === true);
 const isAdmin = computed(() => state.currentUser?.role === 'ADMIN');
@@ -71,6 +128,19 @@ export const useStore = () => {
     logout,
     isAuthenticated,
     isAdmin,
-    isTenant
+    isTenant,
+    // KPIs Computados - Dashboard Principal
+    totalDepartamentos,
+    totalInquilinos,
+    contratosActivos,
+    pagosPendientes,
+    // KPIs Computados - Dashboard Financiero
+    ocupacion,
+    morosidad,
+    boletasPendientes,
+    ingresos,
+    boletasPagadas,
+    departamentosOcupados,
+    departamentosDisponibles
   };
 };
