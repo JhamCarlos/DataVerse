@@ -12,7 +12,7 @@ export default {
         "on-primary-fixed-variant": "#184974",
         "outline": "#72777f",
         "secondary-container": "#d1e1f7",
-        "primary": "#00375e",
+        "primary": "#1E40AF",
         "error": "#ba1a1a",
         "surface-variant": "#e0e3e6",
         "surface-dim": "#d8dadd",

@@ -129,7 +129,7 @@ const getBoletaDisplay = (pago) => {
 const getSeverity = (estado) => {
   switch (estado) {
     case 'APROBADO': return 'success';
-    case 'PENDIENTE': return 'warning';
+    case 'PENDIENTE': return 'warn';
     case 'RECHAZADO': return 'danger';
     default: return 'info';
   }

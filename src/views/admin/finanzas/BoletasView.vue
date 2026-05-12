@@ -120,7 +120,7 @@ const boletasActivas = computed(() => {
 const getSeverity = (estado) => {
   switch (estado) {
     case 'PAGADA': return 'success';
-    case 'PENDIENTE': return 'warning';
+    case 'PENDIENTE': return 'warn';
     case 'VENCIDA': return 'danger';
     case 'ANULADA': return 'info';
     default: return 'info';

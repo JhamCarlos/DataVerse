@@ -120,7 +120,7 @@ const gastosActivos = computed(() => {
 const getSeverity = (estado) => {
   switch (estado) {
     case 'APROBADO': return 'success';
-    case 'PENDIENTE': return 'warning';
+    case 'PENDIENTE': return 'warn';
     case 'CANCELADO': return 'danger';
     default: return 'info';
   }

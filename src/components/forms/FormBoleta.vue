@@ -14,7 +14,11 @@
       </div>
       <div class="flex flex-col gap-2">
         <label for="estado_boleta" class="font-medium text-sm text-gray-700">Estado de Boleta *</label>
-        <Dropdown id="estado_boleta" v-model="formData.estado_boleta" :options="estadosBoleta" placeholder="Seleccione Estado" />
+        <Dropdown id="estado_boleta" v-model="formData.estado_boleta" :options="estadosBoleta" placeholder="Seleccione Estado">
+          <template #option="slotProps">
+            <Tag :severity="getSeverity(slotProps.option)" :value="slotProps.option" />
+          </template>
+        </Dropdown>
       </div>
     </div>
 
@@ -82,6 +86,7 @@ import Dropdown from 'primevue/dropdown';
 import Calendar from 'primevue/calendar';
 import InputSwitch from 'primevue/inputswitch';
 import Button from 'primevue/button';
+import Tag from 'primevue/tag';
 
 const props = defineProps({
   initialData: { type: Object, default: () => ({}) },
@@ -115,6 +120,15 @@ const formData = ref({
   estado_boleta: 'PENDIENTE',
   estado: 1
 });
+
+const getSeverity = (estado) => {
+  switch (estado) {
+    case 'PAGADA': return 'success';
+    case 'PENDIENTE': return 'warn';
+    case 'VENCIDA': return 'danger';
+    default: return 'info';
+  }
+};
 
 const totalMonto = computed(() => {
   return (formData.value.monto_alquiler || 0) + 

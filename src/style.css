@@ -10,7 +10,7 @@
   --text-h: #191c1e;
   --bg: #f7f9fc;
   --border: #c2c7d0;
-  --accent: #00375e;
+  --accent: #3B82F6;
   font-size: 16px;
   color-scheme: light dark;
 }
@@ -348,4 +348,18 @@ html body .p-dialog .p-dialog-header .p-dialog-header-icon {
 html body .p-dialog .p-dialog-header .p-dialog-header-icon:hover {
   background-color: rgba(255, 255, 255, 0.2) !important;
   color: #ffffff !important;
+}
+
+/* Custom Warning Tag Style (For PENDIENTE) */
+.p-tag-warn {
+  background-color: #FEF3C7 !important; /* amber-100 */
+  color: #92400E !important;            /* amber-800 */
+  border: 1px solid #FCD34D !important; /* amber-300 */
+  font-weight: 700 !important;
+}
+
+.dark .p-tag-warn {
+  background-color: rgba(245, 158, 11, 0.2) !important;
+  color: #FBBF24 !important;
+  border: 1px solid rgba(245, 158, 11, 0.4) !important;
 }

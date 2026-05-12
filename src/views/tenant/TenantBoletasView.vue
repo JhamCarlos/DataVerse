@@ -42,7 +42,7 @@
 
         <Column field="estado_boleta" header="Estado" sortable>
           <template #body="{ data }">
-            <Tag :severity="data.estado_boleta === 'PAGADA' ? 'success' : 'warning'" :value="data.estado_boleta" />
+            <Tag :severity="data.estado_boleta === 'PAGADA' ? 'success' : 'warn'" :value="data.estado_boleta" />
           </template>
         </Column>
 

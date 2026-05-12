@@ -33,7 +33,11 @@
     <!-- Fila 4: Estado de Validación -->
     <div class="flex flex-col gap-2 mt-2">
       <label for="estado_validacion" class="font-medium text-sm text-gray-700">Estado de Validación *</label>
-      <Dropdown id="estado_validacion" v-model="formData.estado_validacion" :options="estadosValidacion" placeholder="Seleccione Estado" />
+      <Dropdown id="estado_validacion" v-model="formData.estado_validacion" :options="estadosValidacion" placeholder="Seleccione Estado">
+        <template #option="slotProps">
+          <Tag :severity="getSeverity(slotProps.option)" :value="slotProps.option" />
+        </template>
+      </Dropdown>
     </div>
 
     <!-- Fila 5: Estado Lógico (Soft Delete) -->
@@ -59,6 +63,7 @@ import Dropdown from 'primevue/dropdown';
 import Calendar from 'primevue/calendar';
 import InputSwitch from 'primevue/inputswitch';
 import Button from 'primevue/button';
+import Tag from 'primevue/tag';
 
 const props = defineProps({
   initialData: { type: Object, default: () => ({}) },
@@ -71,6 +76,15 @@ const store = useStore();
 const metodosPago = ref(['TRANSFERENCIA', 'EFECTIVO', 'TARJETA', 'YAPE', 'PLIN']);
 const estadosValidacion = ref(['PENDIENTE', 'APROBADO', 'RECHAZADO']);
 const boletasPendientes = ref([]);
+
+const getSeverity = (estado) => {
+  switch (estado) {
+    case 'APROBADO': return 'success';
+    case 'PENDIENTE': return 'warn';
+    case 'RECHAZADO': return 'danger';
+    default: return 'info';
+  }
+};
 
 onMounted(() => {
   // Cargar boletas que están pendientes para asociarlas a un pago
